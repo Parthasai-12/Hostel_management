@@ -34,11 +34,16 @@ public class AuthService {
     }
 
     public String login(String email, String password) {
+        System.out.println("[AuthService] Login attempt — email='" + email + "'");
         User user = userRepository.findByEmail(email);
         if (user == null) {
+            System.out.println("[AuthService] FAIL — no user found for email='" + email + "'");
             throw new IllegalArgumentException("Invalid credentials");
         }
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        System.out.println("[AuthService] User found — id=" + user.getId() + " role=" + user.getRole());
+        boolean passwordMatches = passwordEncoder.matches(password, user.getPassword());
+        System.out.println("[AuthService] Password matches: " + passwordMatches);
+        if (!passwordMatches) {
             throw new IllegalArgumentException("Invalid credentials");
         }
         if (user.getRole() == null) {

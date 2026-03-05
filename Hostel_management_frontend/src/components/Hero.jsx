@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { User, Shield } from 'lucide-react';
+import { LogIn } from 'lucide-react';
 import Button from './Button';
 import './Hero.css';
 
@@ -36,11 +36,7 @@ const Hero = ({ onNavigate, isLoggedIn }) => {
         },
     };
 
-    const handleStudentLogin = () => {
-        onNavigate('login');
-    };
-
-    const handleAdminLogin = () => {
+    const handleLogin = () => {
         onNavigate('login');
     };
 
@@ -71,22 +67,13 @@ const Hero = ({ onNavigate, isLoggedIn }) => {
 
                     <motion.div className="hero-buttons" variants={itemVariants}>
                         {!isLoggedIn ? (
-                            <>
-                                <Button
-                                    variant="primary"
-                                    icon={<User size={20} />}
-                                    onClick={handleStudentLogin}
-                                >
-                                    Login as Student
-                                </Button>
-                                <Button
-                                    variant="secondary"
-                                    icon={<Shield size={20} />}
-                                    onClick={handleAdminLogin}
-                                >
-                                    Login as Admin
-                                </Button>
-                            </>
+                            <Button
+                                variant="primary"
+                                icon={<LogIn size={20} />}
+                                onClick={handleLogin}
+                            >
+                                Login
+                            </Button>
                         ) : (
                             <Button
                                 variant="primary"

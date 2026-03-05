@@ -109,7 +109,7 @@ const Navbar = ({ scrolled, onNavigate, isLoggedIn, onLogout }) => {
 
                 {/* Desktop Menu */}
                 <ul className="nav-menu desktop-menu">
-                    {navItems.filter(item => item.id !== 'profile').map((item, index) => (
+                    {navItems.filter(item => item.id !== 'profile' && (isLoggedIn || item.id !== 'complaints')).map((item, index) => (
                         <motion.li
                             key={item.id}
                             initial={{ opacity: 0, y: -20 }}
@@ -134,44 +134,24 @@ const Navbar = ({ scrolled, onNavigate, isLoggedIn, onLogout }) => {
                     ))}
 
                     {!isLoggedIn ? (
-                        <>
-                            <motion.li
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.3 }}
+                        <motion.li
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                        >
+                            <motion.a
+                                href="#login"
+                                className="nav-link login-btn"
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    onNavigate('login');
+                                }}
                             >
-                                <motion.a
-                                    href="#login"
-                                    className="nav-link login-btn secondary"
-                                    whileHover={{ scale: 1.05, y: -2 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        onNavigate('login');
-                                    }}
-                                >
-                                    Login as Student
-                                </motion.a>
-                            </motion.li>
-                            <motion.li
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4 }}
-                            >
-                                <motion.a
-                                    href="#login"
-                                    className="nav-link login-btn"
-                                    whileHover={{ scale: 1.05, y: -2 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        onNavigate('login');
-                                    }}
-                                >
-                                    Login as Admin
-                                </motion.a>
-                            </motion.li>
-                        </>
+                                Login
+                            </motion.a>
+                        </motion.li>
                     ) : (
                         <motion.li
                             className="profile-menu-container"
@@ -233,7 +213,7 @@ const Navbar = ({ scrolled, onNavigate, isLoggedIn, onLogout }) => {
                         transition={{ duration: 0.3 }}
                     >
                         <ul className="mobile-nav-list">
-                            {navItems.filter(item => item.id !== 'profile').map((item, index) => (
+                            {navItems.filter(item => item.id !== 'profile' && (isLoggedIn || item.id !== 'complaints')).map((item, index) => (
                                 <motion.li
                                     key={item.id}
                                     initial={{ opacity: 0, x: -20 }}
@@ -254,14 +234,9 @@ const Navbar = ({ scrolled, onNavigate, isLoggedIn, onLogout }) => {
                                 </motion.li>
                             ))}
                             {!isLoggedIn ? (
-                                <>
-                                    <motion.li>
-                                        <a href="#login" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onNavigate('login'); setMobileMenuOpen(false); }}>Login as Student</a>
-                                    </motion.li>
-                                    <motion.li>
-                                        <a href="#login" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onNavigate('login'); setMobileMenuOpen(false); }}>Login as Admin</a>
-                                    </motion.li>
-                                </>
+                                <motion.li>
+                                    <a href="#login" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); onNavigate('login'); setMobileMenuOpen(false); }}>Login</a>
+                                </motion.li>
                             ) : (
                                 <>
                                     <motion.li>

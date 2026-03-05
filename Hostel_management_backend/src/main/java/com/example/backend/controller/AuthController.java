@@ -6,6 +6,7 @@ import com.example.backend.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -37,6 +38,25 @@ public class AuthController {
         String token = authService.login(email, password);
         Map<String, String> response = new HashMap<>();
         response.put("token", token);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Create a new admin user. Only accessible by users with ADMIN role.
+     * Role is always set to ADMIN server-side — never accepted from the request body.
+     */
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/admin/create")
+    public ResponseEntity<Map<String, String>> createAdmin(@Valid @RequestBody RegisterRequest request) {
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setRole(User.Role.ADMIN); // Always ADMIN — not from request body
+        User savedUser = authService.register(user);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Admin created successfully");
+        response.put("email", savedUser.getEmail());
         return ResponseEntity.ok(response);
     }
 }
