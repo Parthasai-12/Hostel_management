@@ -36,8 +36,9 @@ public class User {
     private String roomNumber;
 
     public enum Role {
-        STUDENT,
-        ADMIN
+        ADMIN,
+        WARDEN,
+        STUDENT
     }
 
     // Getters and Setters

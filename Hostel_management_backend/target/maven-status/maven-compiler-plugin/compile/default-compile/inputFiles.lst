@@ -1,6 +1,7 @@
 C:\Users\parth\OneDrive\Desktop\Hostel_management\Hostel_management_backend\src\main\java\com\example\backend\dto\ComplaintRequest.java
 C:\Users\parth\OneDrive\Desktop\Hostel_management\Hostel_management_backend\src\main\java\com\example\backend\controller\UserController.java
 C:\Users\parth\OneDrive\Desktop\Hostel_management\Hostel_management_backend\src\main\java\com\example\backend\config\JwtAuthenticationFilter.java
+C:\Users\parth\OneDrive\Desktop\Hostel_management\Hostel_management_backend\src\main\java\com\example\backend\controller\AdminController.java
 C:\Users\parth\OneDrive\Desktop\Hostel_management\Hostel_management_backend\src\main\java\com\example\backend\SpringBootBackendApplication.java
 C:\Users\parth\OneDrive\Desktop\Hostel_management\Hostel_management_backend\src\main\java\com\example\backend\config\SecurityConfig.java
 C:\Users\parth\OneDrive\Desktop\Hostel_management\Hostel_management_backend\src\main\java\com\example\backend\entity\Complaint.java

@@ -30,29 +30,23 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        // Step 1: Delete all existing ADMIN users
-        List<User> existingAdmins = userRepository.findByRole(User.Role.ADMIN);
-        if (!existingAdmins.isEmpty()) {
-            userRepository.deleteAll(existingAdmins);
-            System.out.println("[DataInitializer] Deleted " + existingAdmins.size() + " existing ADMIN user(s).");
-        }
+        // Find existing admin by email
+        User existingAdmin = userRepository.findByEmail(ADMIN_EMAIL);
 
-        // Step 2: Create a fresh default admin
-        User admin = new User();
-        admin.setName(ADMIN_NAME);
-        admin.setEmail(ADMIN_EMAIL);
-        admin.setPassword(passwordEncoder.encode(ADMIN_PASSWORD));
-        admin.setRole(User.Role.ADMIN);
-        userRepository.save(admin);
-        System.out.println("[DataInitializer] New default admin created — email: " + ADMIN_EMAIL);
-
-        // Step 3: Verify the save by re-reading from DB
-        User verify = userRepository.findByEmail(ADMIN_EMAIL);
-        if (verify != null) {
-            boolean matches = passwordEncoder.matches(ADMIN_PASSWORD, verify.getPassword());
-            System.out.println("[DataInitializer] Verification — found in DB: true | password matches: " + matches + " | role: " + verify.getRole());
+        if (existingAdmin != null) {
+            System.out.println("[DataInitializer] Default admin already exists. Updating password/role to ensure it's correct.");
+            existingAdmin.setName(ADMIN_NAME);
+            existingAdmin.setPassword(passwordEncoder.encode(ADMIN_PASSWORD));
+            existingAdmin.setRole(User.Role.ADMIN);
+            userRepository.save(existingAdmin);
         } else {
-            System.out.println("[DataInitializer] ERROR — admin NOT found in DB after save!");
+            System.out.println("[DataInitializer] No default admin found. Creating one.");
+            User admin = new User();
+            admin.setName(ADMIN_NAME);
+            admin.setEmail(ADMIN_EMAIL);
+            admin.setPassword(passwordEncoder.encode(ADMIN_PASSWORD));
+            admin.setRole(User.Role.ADMIN);
+            userRepository.save(admin);
         }
 
         System.out.println("[DataInitializer] Ready to login with: " + ADMIN_EMAIL + " / " + ADMIN_PASSWORD);

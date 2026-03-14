@@ -59,4 +59,23 @@ public class AuthController {
         response.put("email", savedUser.getEmail());
         return ResponseEntity.ok(response);
     }
+
+    /**
+     * Create a new warden user. Only accessible by users with ADMIN role.
+     * Role is always set to WARDEN server-side — never accepted from the request body.
+     */
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/admin/create-warden")
+    public ResponseEntity<Map<String, String>> createWarden(@Valid @RequestBody RegisterRequest request) {
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setRole(User.Role.WARDEN); // Always WARDEN — not from request body
+        User savedUser = authService.register(user);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Warden created successfully");
+        response.put("email", savedUser.getEmail());
+        return ResponseEntity.ok(response);
+    }
 }

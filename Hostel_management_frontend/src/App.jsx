@@ -9,6 +9,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
 import AdminDashboard from './components/AdminDashboard';
+import WardenDashboard from './components/WardenDashboard';
 import './App.css';
 
 function App() {
@@ -49,6 +50,9 @@ function App() {
   if (currentView === 'dashboard' || currentView === 'complaints') {
     if (userRole === 'ADMIN') {
       return <AdminDashboard onNavigate={setCurrentView} onLogout={handleLogout} />;
+    }
+    if (userRole === 'WARDEN') {
+      return <WardenDashboard onNavigate={setCurrentView} onLogout={handleLogout} />;
     }
     return <StudentDashboard onNavigate={setCurrentView} onLogout={handleLogout} initialView={currentView === 'complaints' ? 'complaints' : 'dashboard'} />;
   }

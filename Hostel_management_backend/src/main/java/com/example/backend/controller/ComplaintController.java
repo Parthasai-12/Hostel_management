@@ -52,14 +52,14 @@ public class ComplaintController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('WARDEN')")
     public ResponseEntity<List<Complaint>> getAllComplaints() {
         List<Complaint> complaints = complaintService.getAllComplaints();
         return ResponseEntity.ok(complaints);
     }
 
     @PutMapping("/{id}/status")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('WARDEN')")
     public ResponseEntity<Complaint> updateComplaintStatus(@PathVariable Long id, @Valid @RequestBody StatusUpdateRequest request) {
         Complaint complaint = complaintService.updateComplaintStatus(id, request.getStatus());
         return ResponseEntity.ok(complaint);

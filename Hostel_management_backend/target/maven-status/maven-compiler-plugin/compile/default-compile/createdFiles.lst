@@ -1,6 +1,7 @@
 com\example\backend\controller\UserController.class
 com\example\backend\controller\AuthController.class
 com\example\backend\entity\User.class
+com\example\backend\config\WebConfig.class
 com\example\backend\service\AuthService.class
 com\example\backend\exception\GlobalExceptionHandler.class
 com\example\backend\dto\UserResponse.class
@@ -8,11 +9,14 @@ com\example\backend\entity\Complaint.class
 com\example\backend\controller\HealthController.class
 com\example\backend\repository\UserRepository.class
 com\example\backend\entity\User$Role.class
+com\example\backend\service\FileStorageService.class
+com\example\backend\config\DataInitializer.class
 com\example\backend\dto\ComplaintRequest.class
 com\example\backend\entity\Complaint$Status.class
 com\example\backend\dto\RegisterRequest.class
 com\example\backend\util\JwtUtil.class
 com\example\backend\controller\ComplaintController.class
+com\example\backend\controller\AdminController.class
 com\example\backend\service\ComplaintService.class
 com\example\backend\SpringBootBackendApplication.class
 com\example\backend\dto\StatusUpdateRequest.class
